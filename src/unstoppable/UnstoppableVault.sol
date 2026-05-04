@@ -2,16 +2,18 @@
 // Damn Vulnerable DeFi v4 (https://damnvulnerabledefi.xyz)
 pragma solidity =0.8.25;
 
-import {ReentrancyGuard} from "solady/utils/ReentrancyGuard.sol";
-import {FixedPointMathLib} from "solmate/utils/FixedPointMathLib.sol";
-import {Owned} from "solmate/auth/Owned.sol";
+import {ReentrancyGuard} from "solady/utils/ReentrancyGuard.sol"; // modifier nonReentrant() 
+import {FixedPointMathLib} from "solmate/utils/FixedPointMathLib.sol"; // Pure math
+import {Owned} from "solmate/auth/Owned.sol"; // modifier onlyOwner() 
 import {SafeTransferLib, ERC4626, ERC20} from "solmate/tokens/ERC4626.sol";
-import {Pausable} from "@openzeppelin/contracts/utils/Pausable.sol";
+import {Pausable} from "@openzeppelin/contracts/utils/Pausable.sol"; // _pause / _unpause
 import {IERC3156FlashBorrower, IERC3156FlashLender} from "@openzeppelin/contracts/interfaces/IERC3156.sol";
 
 /**
  * An ERC4626-compliant tokenized vault offering flashloans for a fee.
  * An owner can pause the contract and execute arbitrary changes.
+ * 
+ * This vault loan
  */
 contract UnstoppableVault is IERC3156FlashLender, ReentrancyGuard, Owned, ERC4626, Pausable {
     using SafeTransferLib for ERC20;
@@ -50,6 +52,11 @@ contract UnstoppableVault is IERC3156FlashLender, ReentrancyGuard, Owned, ERC462
         return totalAssets();
     }
 
+
+    /** This function return the fee ( price of the loan )
+     * If 
+     * 
+    */
     /**
      * @inheritdoc IERC3156FlashLender
      */
@@ -81,7 +88,11 @@ contract UnstoppableVault is IERC3156FlashLender, ReentrancyGuard, Owned, ERC462
     {
         if (amount == 0) revert InvalidAmount(0); // fail early
         if (address(asset) != _token) revert UnsupportedCurrency(); // enforce ERC3156 requirement
+        
+        // Total Asset is the total number of _token hold by the contract
         uint256 balanceBefore = totalAssets();
+       
+       // Problem here cf : test file
         if (convertToShares(totalSupply) != balanceBefore) revert InvalidBalance(); // enforce ERC4626 requirement
 
         // transfer tokens out + execute callback on receiver

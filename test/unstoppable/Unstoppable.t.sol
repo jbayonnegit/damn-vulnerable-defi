@@ -88,10 +88,26 @@ contract UnstoppableChallenge is Test {
     }
 
     /**
-     * CODE YOUR SOLUTION HERE
+     * CODE YOUR SOLUTION HERE 
+     * 
+     * This is a simple Deny Of Service attack.
+     * 
+     *  * if (convertToShares(totalSupply) != balanceBefore) revert InvalidBalance();
+     * 
+     *  This line check if the proportion between asset and shares is 1:1 in the vault.
+     *  So if we send $DVT to the contract throught $DVT contract the balance is doomed
+     *  because none share is mint.
+     * 
+     *  It may be better to use :
+     *  * if ( amount <= balanceBefore) || if ( amount <= asset.balanceOf( address(this) ))
+     * 
+     *  The protocol also can use an interne variable to count token deposit and maintain
+     *  teh balance.
+     * 
+     *  The use of != and == between two balances is a very strict condition.
      */
     function test_unstoppable() public checkSolvedByPlayer {
-        
+        token.transfer(address(vault), 10e18);
     }
 
     /**
