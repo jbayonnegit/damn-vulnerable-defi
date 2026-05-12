@@ -66,7 +66,6 @@ contract BasicForwarder is EIP712 {
             success := call(forwardGas, target, value, add(payload, 0x20), mload(payload), 0, 0) // don't copy returndata
             gasLeft := gas()
         }
-
         if (gasLeft < request.gas / 63) {
             assembly {
                 invalid()
