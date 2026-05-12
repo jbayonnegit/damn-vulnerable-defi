@@ -83,6 +83,11 @@ contract NaiveReceiverPool is Multicall, IERC3156FlashLender {
         totalDeposits += amount;
     }
 
+    /**
+     * 
+     * @notice This function is a probleme. trustedForwarer can easly take controle of pool balance
+     * through this return : address(bytes20(msg.data[msg.data.length - 20:])); call in withdraw.
+     */
     function _msgSender() internal view override returns (address) {
         if (msg.sender == trustedForwarder && msg.data.length >= 20) {
             return address(bytes20(msg.data[msg.data.length - 20:]));

@@ -75,6 +75,13 @@ contract NaiveReceiverChallenge is Test {
 
 	/**
 	 * CODE YOUR SOLUTION HERE
+	 * 
+	 * By batching ten transaction to the pool the flash loan receiver
+	 * pay 10 times the amount of 1 WETH in fee to the pool.
+	 * 
+	 * Then can exploit _msgSender() to pass the address of the pool to the withdraw function.
+	 * 
+	 * 
 	 */
 	function test_naiveReceiver() public checkSolvedByPlayer {
 		
@@ -101,6 +108,7 @@ contract NaiveReceiverChallenge is Test {
 			deadline: block.timestamp
 		});
 
+		// Signed data
 		bytes32 structHash = keccak256(abi.encode(
     		forwarder.getRequestTypehash(),
     		request.from,
@@ -108,14 +116,14 @@ contract NaiveReceiverChallenge is Test {
     		request.value,
     		request.gas,
     		request.nonce,
-    		keccak256(request.data),
+    		keccak256(request.data), // dynamics datas are hashe twice
     		request.deadline
 		));
 		
 		// digest buil following the EIP-712
 		bytes32 digest = keccak256( abi.encodePacked(
 			"\x19\x01",
-			forwarder.domainSeparator(),
+			forwarder.domainSeparator(),			// ensure that the signature is unique. Two dApp can have the same data structure to signed
 			structHash
 		));
 
