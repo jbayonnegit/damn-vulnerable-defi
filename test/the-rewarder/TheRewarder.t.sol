@@ -148,7 +148,7 @@ contract TheRewarderChallenge is Test {
      * CODE YOUR SOLUTION HERE
      */
     function test_theRewarder() public checkSolvedByPlayer {
-        
+        IERC20[] memory token = new IERC20[](2);
     }
 
     /**
