@@ -56,7 +56,7 @@ contract TrusterChallenge is Test {
      * The first one exploit TrusterLenderPool : 
      *  line 28 : target.functionCall(data);
      * 
-     * @notice we use token as target and we use the approve methode : attack get approval for the total balance of Truster
+     * @notice we use token as a target and we use the approve methode : attack get approval for the total balance of Truster
      * 
      * Then we call transferFrom and send funds to recovery.
      * 
