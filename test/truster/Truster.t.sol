@@ -5,7 +5,7 @@ pragma solidity =0.8.25;
 import {Test, console} from "forge-std/Test.sol";
 import {DamnValuableToken} from "../../src/DamnValuableToken.sol";
 import {TrusterLenderPool} from "../../src/truster/TrusterLenderPool.sol";
-import { Attack } from "../../src/truster/AttackTruster.sol";
+import { Attack } from "../../exploits/truster/AttackTruster.sol";
 
 contract TrusterChallenge is Test {
     address deployer = makeAddr("deployer");

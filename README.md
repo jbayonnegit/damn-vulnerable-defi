@@ -15,8 +15,7 @@ The main objective of this repository is to document my journey as I uncover fla
 
 - `src/`: Contains the vulnerable contracts for each challenge.
 - `test/`: Contains the Foundry test files where solutions and exploits are validated.
-- `exploits.md`: A dedicated file detailing the mechanics of the attacks.
-- `solutions.md`: A dedicated file explaining how to patch the vulnerabilities.
+- `exploits/`: Contains detailed code and writeup of the exploits.
 
 ## Challenges Progress
 
