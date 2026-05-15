@@ -46,7 +46,7 @@ contract SideEntranceChallenge is Test {
      * CODE YOUR SOLUTION HERE
      * 
      * SideEntranceLenderPool allow the borrower to execute deposit function.
-     *  * Borrower have to take a loan deposit the funds on the contract and then withdram them. cf : src/AttackSideEntrance.sol
+     *  * Borrower have to take a loan deposit the funds on the contract and then withdraw them. cf : exploits/side-entrance/AttackSideEntrance.sol
      */
     function test_sideEntrance() public checkSolvedByPlayer {
         AttackSideEntrance attack = new AttackSideEntrance( pool );
