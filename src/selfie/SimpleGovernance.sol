@@ -43,8 +43,8 @@ contract SimpleGovernance is ISimpleGovernance {
             data: data
         });
 
-        unchecked {
-            _actionCounter++;
+        unchecked {             // why uncheck ?
+            _actionCounter++;   
         }
 
         emit ActionQueued(actionId, msg.sender);
