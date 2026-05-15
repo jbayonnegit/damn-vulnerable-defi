@@ -28,16 +28,16 @@ The main objective of this repository is to document my journey as I uncover fla
 | Compromised | ⏳ Not Started |
 | Curvy Puppet | ⏳ Not Started |
 | Free Rider | ⏳ Not Started |
-| Naive Receiver | ⏳ Not Started |
+| Naive Receiver | ✅ Completed |
 | Puppet | ⏳ Not Started |
 | Puppet V2 | ⏳ Not Started |
 | Puppet V3 | ⏳ Not Started |
-| Selfie | ⏳ Not Started |
+| Selfie | ✅ Completed |
 | Shards | ⏳ Not Started |
-| Side Entrance | ⏳ Not Started |
-| The Rewarder | ⏳ Not Started |
-| Truster | ⏳ Not Started |
-| Unstoppable | ⏳ Not Started |
+| Side Entrance | ✅ Completed |
+| The Rewarder | ✅ Completed |
+| Truster | ✅ Completed |
+| Unstoppable | ✅ Completed |
 | Wallet Mining | ⏳ Not Started |
 | Withdrawal | ⏳ Not Started |
 
