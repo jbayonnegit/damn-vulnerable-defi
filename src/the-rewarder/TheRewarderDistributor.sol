@@ -77,7 +77,6 @@ contract TheRewarderDistributor {
 		}
 	}
 
-
 	/**
 	 * 
 	 *  * _setClaimed is almost never call :
